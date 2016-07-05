@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:output method="xml" indent="yes" encoding="UTF-8"/>
+<xsl:strip-space elements="*"/>
+<xsl:template match="text()"/>
+<xsl:template match="index">
+<cues>
+	<xsl:apply-templates select="point"/>
+</cues>
+</xsl:template> 
+
+<xsl:template match="point">
+<cue>
+	<speaker/>
+	<start><xsl:value-of select="time"/></start>
+	<end><xsl:value-of select="following-sibling::point/time[position()=1]"/></end>
+	<transcript><xsl:value-of select="partial-transcript"/></transcript>
+	<annotation><xsl:value-of select="synopsis"/></annotation>
+</cue>
+</xsl:template>
+
+</xsl:stylesheet>
